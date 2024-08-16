@@ -1,5 +1,6 @@
 import Image from "next/image";
 import ContactForm from "../app/components/ContactForm";
+import Link from "next/link";
 
 function Pin(props: JSX.IntrinsicAttributes & React.AnchorHTMLAttributes<HTMLAnchorElement>) {
   return (
@@ -47,7 +48,7 @@ export default function Home() {
         contact form template. Styled with React-Email and built with React-Hook-Forms, validated with Zod, handles submissions with server actions, and shows toast notifications using Sonner.
       </p>
       <p className="text-balance mt-4 text-center text-zinc-300 md:text-lg">
-        Yout must create an API key & verify your domain, follow these steps.
+        Yout must create an API key & verify your domain, follow the <Link href="https://resend.com/docs/send-with-nodejs" className="underline hover:text-white transition-all">documentation.</Link>
       </p>
       <div className="my-2 text-left mx-auto w-full max-w-xl">
         <hr className="my-6 border-zinc-800" />
