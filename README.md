@@ -1,7 +1,7 @@
 
 # Resend Contact Form Template
 
-![Image](/public/resend-hero-image.webp)
+![Image](/public/resend-hero-image.png)
 
 A Simple [Next.js](https://nextjs.org/), [TypeScript](https://www.typescriptlang.org/) & [Tailwind CSS](https://tailwindcss.com/) contact form template that uses the [Resend API](https://resend.com/). Styled with React-Email and built with React-Hook-Forms, validated with Zod, handles submissions with server actions, and shows toast notifications using Sonner.
 
@@ -68,6 +68,8 @@ from: 'Your Website <noreply@your-domain.com>',
 // Your desired destination email here.
 to: ['your@email.com'], 
 ```
+
+For more details on how I built this, check the blog post on my [website](https://www.jorge-perez.dev/blog/resend-contact-form)
 
 ## Font
 

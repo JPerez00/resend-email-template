@@ -48,7 +48,7 @@ export default function Home() {
         contact form template. Styled with React-Email and built with React-Hook-Forms, validated with Zod, handles submissions with server actions, and shows toast notifications using Sonner.
       </p>
       <p className="text-balance mt-4 text-center text-zinc-300 md:text-lg">
-        Yout must create an API key & verify your domain, follow the <Link href="https://resend.com/docs/send-with-nodejs" className="underline hover:text-white transition-all">documentation.</Link>
+        Yout must create an API key & verify your domain. For more info, read the  <Link href="https://www.jorge-perez.dev/blog/resend-contact-form" className="underline hover:text-white transition-all">blog.</Link>
       </p>
       <div className="my-2 text-left mx-auto w-full max-w-xl">
         <hr className="my-6 border-zinc-800" />
