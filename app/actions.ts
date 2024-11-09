@@ -1,4 +1,5 @@
 // app/actions.ts
+
 'use server'
 
 import { z } from 'zod'
@@ -7,7 +8,7 @@ import { ContactFormSchema } from '../lib/schema'
 import ContactFormEmail from '../app/emails/ContactFormEmail'
 
 type ContactFormInputs = z.infer<typeof ContactFormSchema>
-const resend = new Resend(process.env.RESEND_API_KEY)
+const resend = new Resend(process.env.RESEND_API_KEY) // Fetch Resend API from environment variables
 
 export async function sendEmail(data: ContactFormInputs) {
     const result = ContactFormSchema.safeParse(data)
@@ -20,8 +21,8 @@ export async function sendEmail(data: ContactFormInputs) {
 
     try {
         const emailData = await resend.emails.send({
-            from: 'Your Website <noreply@your-domain.com>', // Make sure it matches the registered domain on Resend.com
-            to: ['your@email.com'], // Your desired destination email here.
+            from: process.env.EMAIL_FROM as string, // Fetch "from" email from environment variables
+            to: [process.env.EMAIL_TO as string],    // Fetch "to" email from environment variables
             subject: 'Contact Form Submission',
             text: `Name: ${name}\nEmail: ${email}\nMessage: ${message}`,
             react: ContactFormEmail({ name, email, message })
