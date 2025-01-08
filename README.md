@@ -55,9 +55,15 @@ Navigate to your Vercel dashboard, select your project, go to the "Settings" tab
 
 ```bash
 RESEND_API_KEY=your_resend_api_key_here
-EMAIL_FROM="Your Website Name <noreply@your-domain.com>"
+EMAIL_FROM=Your Website Name <noreply@your-domain.com>
 EMAIL_TO=your_destination_email@example.com
 ```
+
+#### Note:
+
+Include the `""` in the `.env.local` file, but do not include the `""` in the `Vercel Environment Variables`, see example below:
+
+![Image](/public/resend-env-2.png)
 
 ## Start Editing
 
