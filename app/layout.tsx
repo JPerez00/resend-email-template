@@ -10,7 +10,35 @@ const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
   title: "Resend Contact Form Template",
-  description: "A Simple Next.js Contact Form Template Using The Resend API.",
+  description:
+    "A Simple Next.js Contact Form Template Using The Resend API",
+  openGraph: {
+    title: "Resend Contact Form Template",
+    description:
+      "A Simple Next.js Contact Form Template Using The Resend API",
+    url: "https://resend-email-template.vercel.app/", 
+    siteName: "Resend Contact Form Template",
+    images: [
+      {
+        url: "/images/opengraph-image.png",
+        width: 1200,
+        height: 630,
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Resend Contact Form Template",
+    description:
+      "A Simple Next.js Contact Form Template Using The Resend API",
+    images: [
+      {
+        url: "/images/opengraph-image.png",
+        width: 1200,
+        height: 630,
+      },
+    ],
+  },
 };
 
 const cx = (...classes: string[]) => classes.filter(Boolean).join(' ');
