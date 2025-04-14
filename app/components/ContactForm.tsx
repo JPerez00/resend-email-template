@@ -25,10 +25,10 @@ export default function ContactForm() {
     const result = await sendEmail(data)
 
     if (result?.success) {
-      toast.success('Email sent!')
+      toast.success('Your email was sent successfully. Thank you!')
       reset()
     } else {
-      toast.error('Something went wrong!')
+      toast.error('Oops, something went wrong. Please try again.')
       console.error(result?.error)
     }
   }
@@ -79,13 +79,21 @@ export default function ContactForm() {
             <p className='ml-1 text-sm text-red-400'>{errors.message.message}</p>
           )}
         </div>
-        <button
-          disabled={isSubmitting}
-          className="mt-2 inline-flex items-center rounded-lg bg-zinc-700 py-2 px-4 text-sm/6 font-semibold text-zinc-100 shadow-inner shadow-white/10 focus:outline-none hover:bg-zinc-600 focus:bg-zinc-700 focus:outline-1 focus:outline-white"
-        >
-          {isSubmitting ? 'Submitting...' : 'Submit'}
-        </button>
-      </div>
+        <div className="flex space-x-4 justify-start">
+          <button
+            disabled={isSubmitting}
+            className="mt-2 inline-flex items-center rounded-lg bg-zinc-700 py-2 px-4 text-sm/6 font-semibold text-zinc-100 shadow-inner shadow-white/10 focus:outline-none hover:bg-zinc-600 focus:bg-zinc-700 focus:outline-1 focus:outline-white"
+          >
+            {isSubmitting ? 'Submitting...' : 'Submit'}
+          </button>
+          <button
+            className="mt-2 inline-flex items-center rounded-lg bg-zinc-700 py-2 px-4 text-sm/6 font-semibold text-zinc-100 shadow-inner shadow-white/10 focus:outline-none hover:bg-zinc-600 focus:bg-zinc-700 focus:outline-1 focus:outline-white"
+            type='reset'
+          >
+            Clear
+          </button>
+        </div>
+    </div>
     </form>
   )
 }

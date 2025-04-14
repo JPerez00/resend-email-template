@@ -35,6 +35,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/JPerez00/resend-email-template"
+    "url": "https://github.com/JPerez00/resend-email-template",
+    "docs": "https://www.jorge-perez.dev/blog/resend-contact-form"
   }
 }
