@@ -3,7 +3,7 @@
 
 ![Image](/public/resend-hero-image.png)
 
-A Simple [Next.js](https://nextjs.org/), [TypeScript](https://www.typescriptlang.org/) & [Tailwind CSS](https://tailwindcss.com/) contact form template that uses the [Resend API](https://resend.com/). Styled with React-Email and built with React-Hook-Forms, validated with Zod, handles submissions with server actions, and shows toast notifications using Sonner.
+A Simple [Next.js](https://nextjs.org/), [TypeScript](https://www.typescriptlang.org/) & [Tailwind CSS](https://tailwindcss.com/) contact form template that uses the [Resend API](https://resend.com/). Built with React-Hook-Forms, validated with Zod, handles submissions with server actions, and shows toast notifications using Sonner.
 
 ## Live Demo:
 
@@ -14,7 +14,6 @@ A Simple [Next.js](https://nextjs.org/), [TypeScript](https://www.typescriptlang
 
 - Resend Email API
 - Form built with [React-Hook-Forms](https://react-hook-form.com/)
-- Styled with [React-Email](https://react.email/)
 - Email validation With [Zod](https://zodjs.netlify.app/)
 - Dialog Toast Notification With [Sonner](https://sonner.emilkowal.ski/)
 
@@ -59,11 +58,27 @@ EMAIL_FROM=Your Website Name <noreply@your-domain.com>
 EMAIL_TO=your_destination_email@example.com
 ```
 
-#### Note:
+#### Important Note:
 
-Include the `""` in the `.env.local` file, but do not include the `""` in the `Vercel Environment Variables`, see example below:
+Include quotes around the value in the `.env.local` file, but omit them in the `Vercel Environment Variables`. For example:
+
+- Locally: `EMAIL_FROM="Coding SaaS <noreply@codingsaas.com>"`
+- On Vercel: `EMAIL_FROM=Coding SaaS <noreply@codingsaas.com>`
+
+See Vercel deployment example below:
 
 ![Image](/public/resend-env-2.png)
+
+### Email Destination
+
+If your verified domain is, for example, `"www.skynet.com"`, you could use `noreply@skynet.com` as the sender. Variations like `no-reply, sender, delivered,` are also acceptable (I personally use <noreply@mydomain.com>).
+
+Assign a title to your email to indicate it’s coming from your landing page, then update your email configuration:
+
+```bash
+EMAIL_FROM="Coding SaaS <noreply@codingsaas.com>"
+EMAIL_TO=your_destination_email@email.com
+```
 
 ## Start Editing
 

@@ -1,6 +1,9 @@
+"use client"
+
 import Image from "next/image";
 import ContactForm from "../app/components/ContactForm";
 import Link from "next/link";
+import { motion } from "motion/react"
 
 function Pin(props: JSX.IntrinsicAttributes & React.AnchorHTMLAttributes<HTMLAnchorElement>) {
   return (
@@ -15,6 +18,11 @@ function Pin(props: JSX.IntrinsicAttributes & React.AnchorHTMLAttributes<HTMLAnc
 export default function Home() {
   return (
     <main className="mb-20 mt-8 md:mt-12 flex flex-1 w-full flex-col items-center justify-center text-center">
+      <motion.div
+        initial={{ opacity: 0, y: 20, filter: "blur(10px)" }}
+        animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+        transition={{ duration: 0.4, ease: "easeOut" }}
+      >
       <span className="mb-6 rounded-full bg-zinc-400 dark:bg-zinc-500/20 px-4 py-1.5 text-sm/6 font-semibold text-white ring-1 ring-inset ring-zinc-500 dark:ring-zinc-500/30">
         Simple Email Contact Form For Developers
       </span>
@@ -50,10 +58,16 @@ export default function Home() {
       <p className="max-w-xl mx-auto text-pretty mt-4 text-center text-zinc-400 md:text-lg">
         Yout must create an API key & verify your domain. For more info, read the  <Link href="https://www.jorge-perez.dev/blog/resend-contact-form" className="underline hover:text-white transition-all">blog.</Link>
       </p>
+      </motion.div>
+      <motion.div
+        initial={{ opacity: 0, y: 20, filter: "blur(10px)" }}
+        animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+        transition={{ duration: 0.4, ease: "easeOut", delay: 0.3 }}
+        className="text-left w-full"
+      >
       <hr className="my-6 border-zinc-700 w-full" />
-      <div className="text-left w-full">
-        <ContactForm />
-      </div>
+      <ContactForm />
+      </motion.div>
     </main>
   );
 }
