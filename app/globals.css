@@ -25,6 +25,7 @@
 .font-styling {
   font-feature-settings:"ss04"
 }
+
 .font-gradient {
   background:linear-gradient(to right bottom,#fff 30%,hsla(0,0%,100%,.5));
   -webkit-background-clip:text;
@@ -32,20 +33,9 @@
   background-clip:text;
   color:unset
 }
+
 .font-effect-hero {
   -webkit-text-stroke:.4px #ffffff80;
   -webkit-text-fill-color:transparent;
   text-shadow:-1px -1px 0 hsla(0,0%,100%,.2),1px 1px 0 rgba(0,0,0,.1)
-}
-.resend-dark-gradient-text {
-  background-image:linear-gradient(180deg,#535353 0,#535353 60%,#161616)
-}
-.dark .resend-dark-gradient-text,
-.resend-dark-gradient-text {
-  -webkit-background-clip:text;
-  background-clip:text;
-  color:transparent
-}
-.dark .resend-dark-gradient-text {
-  background-image:linear-gradient(180deg,#e5e5e5 0,#e5e5e5 60%,#535353)
 }
