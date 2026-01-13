@@ -1,34 +1,66 @@
 // app/actions.ts
+'use server';
 
-'use server'
+import 'server-only';
+import React from 'react';
+import { headers } from 'next/headers';
+import { Resend } from 'resend';
 
-import { z } from 'zod'
-import { Resend } from 'resend'
-import { ContactFormSchema } from '../lib/schema'
-import ContactFormEmail from '../app/emails/ContactFormEmail'
+import { ContactFormSchema } from '@/lib/schema';
+import type { ContactFormState } from '@/lib/contact';
+import { env } from '@/lib/env.server';
+import ContactFormEmail from '@/app/emails/ContactFormEmail';
 
-type ContactFormInputs = z.infer<typeof ContactFormSchema>
-const resend = new Resend(process.env.RESEND_API_KEY) // Fetch Resend API from environment variables
+const resend = new Resend(env.RESEND_API_KEY);
 
-export async function sendEmail(data: ContactFormInputs) {
-    const result = ContactFormSchema.safeParse(data)
+function parseEmailToList(value: string) {
+  return value
+    .split(',')
+    .map((s) => s.trim())
+    .filter(Boolean);
+}
 
-    if (!result.success) {
-        return { success: false, error: result.error.format() }
-    }
+export async function sendEmail(prevState: ContactFormState, formData: FormData): Promise<ContactFormState> {
+  // Honeypot spam trap (bots often fill every field)
+  const website = formData.get('website');
+  if (typeof website === 'string' && website.trim().length > 0) {
+    return { ok: true, message: 'Thanks!' };
+  }
 
-    const { name, email, message } = result.data
+  const parsed = ContactFormSchema.safeParse({
+    name: formData.get('name'),
+    email: formData.get('email'),
+    message: formData.get('message'),
+  });
 
-    try {
-        const emailData = await resend.emails.send({
-            from: process.env.EMAIL_FROM as string, // Fetch "from" email from environment variables
-            to: [process.env.EMAIL_TO as string],    // Fetch "to" email from environment variables
-            subject: 'Contact Form Submission',
-            text: `Name: ${name}\nEmail: ${email}\nMessage: ${message}`,
-            react: ContactFormEmail({ name, email, message })
-        })
-        return { success: true, data: emailData }
-    } catch (error) {
-        return { success: false, error }
-    }
+  if (!parsed.success) {
+    return {
+      ok: false,
+      message: 'Please fix the highlighted fields.',
+      fieldErrors: parsed.error.flatten().fieldErrors,
+    };
+  }
+
+  const { name, email, message } = parsed.data;
+
+  const ip =
+    (await headers()).get('x-forwarded-for')?.split(',')[0]?.trim() ??
+    (await headers()).get('x-real-ip') ??
+    'unknown';
+
+  try {
+    await resend.emails.send({
+      from: env.EMAIL_FROM,
+      to: parseEmailToList(env.EMAIL_TO),
+      subject: `New message from ${name}`,
+      replyTo: email, // supported by Resend :contentReference[oaicite:14]{index=14}
+      text: `Name: ${name}\nEmail: ${email}\n\n${message}\n\nIP: ${ip}`,
+      react: React.createElement(ContactFormEmail, { name, email, message }),
+    });
+
+    return { ok: true, message: 'Message sent. Thanks!' };
+  } catch (err) {
+    console.error('Resend send failed:', err);
+    return { ok: false, message: 'Something went wrong sending your message. Please try again.' };
+  }
 }

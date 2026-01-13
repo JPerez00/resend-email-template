@@ -4,18 +4,25 @@ import Image from "next/image";
 import ContactForm from "../app/components/ContactForm";
 import Link from "next/link";
 import { motion } from "motion/react"
+import type { ComponentPropsWithoutRef } from "react";
 
-function Pin(props: React.ComponentPropsWithoutRef<"a">) {
+type PinProps = ComponentPropsWithoutRef<"a">;
+
+function Pin({ className, ...props }: PinProps) {
   return (
     <a
       {...props}
       target="_blank"
-      rel="noreferrer"
-      className="mr-0.5 ml-0.5 inline-flex items-center rounded border p-1 text-sm leading-4 no-underline border-zinc-700 bg-zinc-800 text-zinc-100"
+      rel="noreferrer noopener"
+      className={[
+        "mx-0.5 inline-flex items-center rounded border border-zinc-700 bg-zinc-800 p-1 text-sm leading-4 text-zinc-100 no-underline",
+        className,
+      ]
+        .filter(Boolean)
+        .join(" ")}
     />
   );
 }
-
 
 export default function Home() {
   return (
@@ -25,10 +32,10 @@ export default function Home() {
         animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
         transition={{ duration: 0.4, ease: "easeOut" }}
       >
-      <span className="mb-6 rounded-full bg-zinc-400 dark:bg-zinc-500/20 px-4 py-1.5 text-sm/6 font-semibold text-white ring-1 ring-inset ring-zinc-500 dark:ring-zinc-500/30">
+      <span className="rounded-full bg-zinc-400 dark:bg-zinc-500/20 px-4 py-1.5 text-sm/6 font-semibold text-white ring-1 ring-inset ring-zinc-500 dark:ring-zinc-500/30">
         Simple Email Contact Form For Developers
       </span>
-      <h1 className="text-balance md:text-7xl leading-[3.4rem] md:leading-[5rem] text-5xl font-bold tracking-tighter font-gradient">
+      <h1 className="mt-6 text-balance md:text-7xl leading-[3.4rem] md:leading-20 text-5xl font-bold tracking-tighter font-gradient">
         Resend API Email Contact Form
       </h1>
       <p className="text-balance mt-6 text-center text-zinc-400 md:text-lg md:leading-relaxed">
@@ -37,28 +44,40 @@ export default function Home() {
             <Image
               alt="Next.js logomark"
               src="/next-logo.svg"
-              className="!mr-1"
+              className="mr-1!"
               width="14"
               height="14"
             />
-            Next.js
+            Next.js 16
           </Pin>
-          {' '} & {' '}
+          ,{' '}
+          <Pin href="https://nextjs.org">
+            <Image
+              alt="React logomark"
+              src="/react-icon.svg"
+              className="mr-1!"
+              width="14"
+              height="14"
+            />
+            React 19
+          </Pin>
+          {' '}
+          & {' '}
           <Pin href="https://resend.com/">
             <Image
               alt="Resend logomark"
               src="/resend-icon.svg"
-              className="!mr-1"
+              className="mr-1!"
               width="14"
               height="14"
             />
             Resend API
           </Pin>
           {' '}
-        contact form template. Built with React-Hook-Forms, validated with Zod, handles submissions with server actions, and shows toast notifications using <Link href="https://sonner.emilkowal.ski/" className="underline hover:text-white transition-all">Sonner</Link>.
+        contact form template. Validated with Zod, submitted via Next.js Server Actions, and includes toast notifications with <Link href="https://sonner.emilkowal.ski/" className="underline hover:text-white transition-all">Sonner</Link>.
       </p>
       <p className="max-w-xl mx-auto text-pretty mt-4 text-center text-zinc-400 md:text-lg">
-        Yout must create an API key & verify your domain. For more info, read the  <Link href="https://www.jorge-perez.dev/blog/resend-contact-form" className="underline hover:text-white transition-all">blog.</Link>
+        You must create a Resend API key and verify a domain or email address. For setup details, read the <Link href="https://www.jorge-perez.dev/blog/resend-contact-form" className="underline hover:text-white transition-all">blog.</Link>
       </p>
       </motion.div>
       <motion.div

@@ -1,4 +1,5 @@
-import { ContactFormInputs } from '../components/ContactForm';
+// app/emails/ContactFormEmail.tsx
+import type { ContactFormInputs } from '@/lib/contact';
 
 export default function ContactFormEmail({ name, email, message }: ContactFormInputs) {
   return (
