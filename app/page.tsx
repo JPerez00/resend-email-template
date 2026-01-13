@@ -5,15 +5,17 @@ import ContactForm from "../app/components/ContactForm";
 import Link from "next/link";
 import { motion } from "motion/react"
 
-function Pin(props: JSX.IntrinsicAttributes & React.AnchorHTMLAttributes<HTMLAnchorElement>) {
+function Pin(props: React.ComponentPropsWithoutRef<"a">) {
   return (
     <a
       {...props}
       target="_blank"
+      rel="noreferrer"
       className="mr-0.5 ml-0.5 inline-flex items-center rounded border p-1 text-sm leading-4 no-underline border-zinc-700 bg-zinc-800 text-zinc-100"
     />
   );
 }
+
 
 export default function Home() {
   return (
