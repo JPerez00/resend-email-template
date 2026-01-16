@@ -6,7 +6,7 @@ export function Navbar() {
     <nav className="mb-16 relative z-50 flex justify-between px-2">
       <div className="flex items-center space-x-2">
         <Link href="/" aria-label="Home">
-          <h2 className='items-center justify-center inline-flex md:text-xl font-bold tracking-tighter font-gradient'>Next.js Template</h2>
+          <h2 className='items-center justify-center inline-flex md:text-xl font-bold tracking-tighter font-gradient'>Next.js Form Starter</h2>
         </Link>
       </div>
       <div className="flex items-center gap-x-2.5">

@@ -1,38 +1,47 @@
-
 # Resend Contact Form Template
 
 ![Image](/public/resend-hero-image.png)
 
-A Simple [Next.js](https://nextjs.org/), [TypeScript](https://www.typescriptlang.org/) & [Tailwind CSS](https://tailwindcss.com/) contact form template that uses the [Resend API](https://resend.com/). Built with React-Hook-Forms, validated with Zod, handles submissions with server actions, and shows toast notifications using Sonner.
+A simple [Next.js](https://nextjs.org/), [TypeScript](https://www.typescriptlang.org/), and [Tailwind CSS](https://tailwindcss.com/) contact form template powered by the [Resend API](https://resend.com/). Validated with [Zod](https://zod.dev/), submitted via Next.js **Server Actions**, and includes toast notifications using [Sonner](https://sonner.emilkowal.ski/).
 
-## Live Demo:
+## Live Demo
 
-[https://resend-email-template.vercel.app/](https://resend-email-template.vercel.app/)
+https://resend-email-template.vercel.app/
 
+## Blog Posts
 
-## Main Features:
+- Original post (first version): https://www.jorge-perez.dev/blog/resend-contact-form  
+- Updated post (Next.js 16 + React 19 + Server Actions refactor): https://www.jorge-perez.dev/blog/resend-contact-updated
 
+## Key Features
+
+- Next.js 16 (App Router)
+- React 19
 - Resend Email API
-- Form built with [React-Hook-Forms](https://react-hook-form.com/)
-- Email validation With [Zod](https://zodjs.netlify.app/)
-- Dialog Toast Notification With [Sonner](https://sonner.emilkowal.ski/)
+- Server-side validation with Zod
+- Form submissions using Next.js Server Actions (`useActionState`)
+- Pending UI state with `useFormStatus`
+- Toast notifications with Sonner
+- `replyTo` set to the sender email for easy replies
+- Basic spam protection via honeypot field
+- Improved metadata configuration (`metadataBase`) for correct OG/Twitter previews
 
-## Prerequisites:
+## Prerequisites
 
-This template requires a Resend API key and a verified domain name. Follow the instructions below to set this up:
+This template requires a Resend API key and a verified domain or sender identity:
 
-- [Create an API key](https://resend.com/api-keys)
-- [Verify your domain](https://resend.com/domains)
+- Create an API key: https://resend.com/api-keys
+- Verify your domain: https://resend.com/domains
 
 ## Clone & Run Locally
 
-First, execute create-next-app with npx to bootstrap the example:
+Bootstrap this example using `create-next-app`:
 
 ```bash
 npx create-next-app --example https://github.com/JPerez00/resend-email-template your-project-name-here
 ```
 
-Create a `.env.local` file in the root directory of your project and add your Resend API key:
+Create a `.env.local` file in the root of the project:
 
 ```bash
 RESEND_API_KEY=your_resend_api_key_here
@@ -40,17 +49,15 @@ EMAIL_FROM="Your Website Name <noreply@your-domain.com>"
 EMAIL_TO=your_destination_email@example.com
 ```
 
-Then run the development server:
+Run the dev server:
 
 ```bash
 npm run dev
 ```
 
-## Clone & Deploy
+## Deploy to Vercel
 
-When deploying the project to Vercel, add the same environment variable to your Vercel project.
-
-Navigate to your Vercel dashboard, select your project, go to the "Settings" tab, and then to "Environment Variables." This ensures the API key and emails are securely accessible both locally and in the deployed environment.
+When deploying to Vercel, add the same environment variables:
 
 ```bash
 RESEND_API_KEY=your_resend_api_key_here
@@ -58,59 +65,52 @@ EMAIL_FROM=Your Website Name <noreply@your-domain.com>
 EMAIL_TO=your_destination_email@example.com
 ```
 
-#### Important Note:
+### Important note about quotes
 
-Include quotes around the value in the `.env.local` file, but omit them in the `Vercel Environment Variables`. For example:
+Include quotes **locally** in `.env.local`, but omit them in **Vercel Environment Variables**:
 
 - Locally: `EMAIL_FROM="Coding SaaS <noreply@codingsaas.com>"`
-- On Vercel: `EMAIL_FROM=Coding SaaS <noreply@codingsaas.com>`
+- Vercel: `EMAIL_FROM=Coding SaaS <noreply@codingsaas.com>`
 
 See Vercel deployment example below:
 
 ![Image](/public/resend-env-2.png)
 
-### Email Destination
+## Optional: Metadata Base URL (recommended)
 
-If your verified domain is, for example, `"www.skynet.com"`, you could use `noreply@skynet.com` as the sender. Variations like `no-reply, sender, delivered,` are also acceptable (I personally use <noreply@mydomain.com>).
-
-Assign a title to your email to indicate it’s coming from your landing page, then update your email configuration:
+This template uses social preview images (Open Graph / Twitter).  
+For the cleanest production previews, you can set:
 
 ```bash
-EMAIL_FROM="Coding SaaS <noreply@codingsaas.com>"
-EMAIL_TO=your_destination_email@email.com
+NEXT_PUBLIC_SITE_URL=https://your-domain.com
+```
+
+Locally you can use:
+
+```bash
+NEXT_PUBLIC_SITE_URL=http://localhost:3000
 ```
 
 ## Start Editing
 
-To set up your emails, just add your Resend API key, a verified domain name, and your source and destination emails:
+Main files you’ll care about:
 
-Previously, you had to manually edit the `from` and `to` addresses in the `app/actions.ts` file, like this:
-
-```bash
-// Make sure it matches the registered domain on Resend.com
-from: 'Your Website Name <noreply@your-domain.com>',
-// Your desired destination email here.
-to: ['your@email.com'], 
-```
-
-Now, you can simply update these in your `.env.local` file or Vercel Variables when deploying. Your `app/actions.ts` file will now use:
-
-```bash
-from: process.env.EMAIL_FROM as string, // Fetch "from" email from environment variables
-to: [process.env.EMAIL_TO as string],    // Fetch "to" email from environment variables
-```
-
-For more details on how I built this, check the blog post on my [website](https://www.jorge-perez.dev/blog/resend-contact-form)
+- `app/components/ContactForm.tsx` (form UI)
+- `app/actions.ts` (Server Action that validates and sends the email)
+- `app/emails/ContactFormEmail.tsx` (email template)
+- `lib/schema.ts` (Zod validation schema)
+- `lib/env.server.ts` (server-only env validation)
+- `app/layout.tsx` (global layout + metadata)
 
 ## Font
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter.
 
 ## Learn More
 
-To learn more about Next.js, take a look at the following resources:
+- Next.js Docs: https://nextjs.org/docs
+- Resend Docs: https://resend.com/docs/introduction
+- Zod Docs: https://zod.dev/
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+You can also check out the Next.js GitHub repo:
+https://github.com/vercel/next.js/

@@ -68,8 +68,8 @@ export default function Home() {
               alt="Resend logomark"
               src="/resend-icon.svg"
               className="mr-1!"
-              width="14"
-              height="14"
+              width="13"
+              height="13"
             />
             Resend API
           </Pin>
@@ -77,7 +77,7 @@ export default function Home() {
         contact form template. Validated with Zod, submitted via Next.js Server Actions, and includes toast notifications with <Link href="https://sonner.emilkowal.ski/" className="underline hover:text-white transition-all">Sonner</Link>.
       </p>
       <p className="max-w-xl mx-auto text-pretty mt-4 text-center text-zinc-400 md:text-lg">
-        You must create a Resend API key and verify a domain or email address. For setup details, read the <Link href="https://www.jorge-perez.dev/blog/resend-contact-form" className="underline hover:text-white transition-all">blog.</Link>
+        You must create a Resend API key and verify a domain or email address. For setup details, read <Link href="https://www.jorge-perez.dev/blog/resend-contact-form" className="underline hover:text-white transition-all">this</Link> & <Link href="https://www.jorge-perez.dev/blog/resend-contact-updated" className="underline hover:text-white transition-all">this.</Link>
       </p>
       </motion.div>
       <motion.div
